@@ -1,0 +1,54 @@
+{% load widget_tweaks %}
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <style>
+    ul {
+      list-style: none;
+    }
+    input[type=radio], input.radio {
+      margin: 2px 0 0 2px;
+    }
+</style>
+
+</head>
+
+<form method="POST" class="post-form" enctype="multipart/form-data" novalidate>
+  {% csrf_token %}
+  <div class="container">
+    <div class="form-group row">
+      <label class="col-sm-1 col-form-label"></label>
+        <div class="col-sm-4">
+          <h3>Enter Details</h3>
+        </div>
+    </div>
+
+  {% for field in form %}
+    <div class="form-group row">
+      <label class="col-sm-2 col-form-label">{{ field.label_tag }}</label>
+      <div class="col-sm-4">
+        {% if form.is_bound %}
+          {% if field.errors %}
+            {% render_field field class="form-control is-invalid" %}
+            {% for error in field.errors %}
+              <div class="invalid-feedback">
+                {{ error }}
+              </div>
+            {% endfor %}
+            {% else %}
+            {% render_field field class="form-control is-valid" %}
+        {% endif %}
+        {% else %}
+          {% render_field field class="form-control" %}
+      {% endif %}
+      </div>
+    </div>
+  {% endfor %}
+
+  <div class="form-group row">
+    <label class="col-sm-1 col-form-label"></label>
+      <div class="col-sm-4">
+      <button type="submit" class="btn btn-primary">Update</button>
+      </div>
+    </div>
+  </div>
+</form>

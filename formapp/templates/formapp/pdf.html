@@ -1,0 +1,17 @@
+{% load static %}
+{% load staticfiles %}
+
+
+<div class="card bg-light text-dark col-sm-5">
+<div class="container" enctype="multipart/form-data">
+    <h1>Profile</h1>
+    <img class="rounded-circle account-img" img src="{{ employee.Image.url }}" width="200">
+    <h3>Welcome {{ employee.user.username }}</h3>
+    <p>Email: {{ employee.user.email }}</p>
+    <p>Gender: {{ employee.gender }}</p>
+    <p>Address: {{ employee.Address }}</p>
+    <p>Country: {{ employee.Country }}</p>
+    <p>Programming_Languages: {{ employee.Programming_Languages}}</p>
+    <p>Date_of_Birth: {{ employee.Date_of_Birth}}</p>
+    <p>Mobile_No.: {{ employee.Mobile_No}}</p>
+</div>

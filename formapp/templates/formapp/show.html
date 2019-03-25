@@ -1,0 +1,102 @@
+{% load widget_tweaks %}
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <style>
+    ul {
+      list-style: none;
+    }
+    input[type=radio], input.radio {
+      margin: 1px 0 0 1px;
+    }
+</style>
+</head>
+
+<!-- <br>
+<div class="row">
+    <div class="col-6"></div>
+      <div class="col-6">
+      <input class="form-control border-secondary py-2" id="myInput" type="text" placeholder="Search..">
+    </div>
+</div> -->
+<br>
+
+  <table class="table table-bordered table-sm">
+    <!-- table-striped -->
+      <thead class="thead-dark">
+        <tr>
+            <th>Employee Name</th>
+            <th>Employee Email</th>
+            <th>Employee Contact</th>
+            <th>Employee BirthDate</th>
+            <th>Gender</th>
+            <th>Address</th>
+            <th>Upload File</th>
+            <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+          {% for employee in employees %}
+          <tr>
+            <td>{{ employee.user.username }}</td>
+            <td>{{ employee.user.email }}</td>
+            <td>{{ employee.Mobile_No }}</td>
+            <td>{{ employee.Date_of_Birth }}</td>
+            <td>{{ employee.gender }}</td>
+            <td>{{ employee.Address }}</td>
+            <td>{{ employee.Image }}</td>
+            <td>
+            <a href="{% url 'formapp:html_to_pdf_view' id=employee.user_id %}" class="btn btn-info">Print</a>
+            <a href="{% url 'formapp:employee_delete' id=employee.user_id %}"  class="btn btn-info"  style="background-color:#f44336">Delete</a>
+            <a href="{% url 'formapp:update' id=employee.user_id %}" class="btn btn-info" style="background-color:Orange">Edit</a>
+            <a href="{% url 'formapp:view_profile' id=employee.user_id %}" class="btn btn-info" style="background-color:MediumSeaGreen">View</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+
+<!-- if we had hundreds or thousands of posts then loading them all at once, could take a while.
+Implementing pagination not only makes the site load faster, but it is also great in terms of usability.
+Django provides a class named Paginator which allows us to create paginated records.
+ To use it, import it from django.core.paginator module. -->
+ <center><a href="{% url 'logout' %}?next=/employee/" class="btn btn-info">Logout</a></center>
+
+
+{% if employees.has_other_pages %}
+<ul class="pagination">
+  {% if employees.has_previous %}
+  <li class="page-item"><a class="page-link" href="?page={{ employees.previous_page_number }}">&laquo</a></li>
+  {% else %}
+  <li class="disabled"><span></span></li>
+  {% endif %}
+  {% for i in employees.paginator.page_range %}
+  {% if employees.number == i%}
+  <li class="page-item"><span class="btn btn-primary">{{ i }} <span class="sr-only">(current)</span></span></li>
+  {% else %}
+  <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+  {% endif %}
+  {% endfor %}
+  {% if employees.has_next %}
+  <li class="page-item"><a class="page-link" href="?page={{ employees.next_page_number }}">&laquo</a></li>
+  {% else %}
+  <li class="disabled"><span></span></li>
+  {% endif %}
+</ul>
+{% endif %}
+
+<!-- <script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script> -->

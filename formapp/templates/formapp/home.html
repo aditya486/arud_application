@@ -1,0 +1,48 @@
+{% load static %}
+{% load staticfiles %}
+{% load widget_tweaks %}
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <style>
+    ul {
+      list-style: none;
+    }
+    input[type=radio], input.radio {
+      margin: 1px 0 0 1px;
+    }
+</style>
+</head>
+<html lang="en" dir="ltr">
+{% csrf_token %}
+  <head>
+    <meta charset="utf-8">
+    <title>About</title>
+  </head>
+
+  <body>
+    <br>
+    <img class="rounded-circle account-img" img src="{{ employee.Image.url }}" width="200">
+    <br><br>
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Profile Info :</legend>
+    </fieldset>
+    <h3>Welcome {{ employee.user.username }}</h3>
+    <p>Email: {{ employee.user.email }}</p>
+    <p>Gender: {{ employee.gender }}</p>
+    <p>Address: {{ employee.Address }}</p>
+    <p>Country: {{ employee.Country }}</p>
+    <p>Programming_Languages: {{ employee.Programming_Languages }}</p>
+    <p>Date_of_Birth: {{ employee.Date_of_Birth}}</p>
+    <p>Mobile_No.: {{ employee.Mobile_No}}</p>
+    <p>File: <a href="{{ employee.File.url }}" class="btn btn-info" target="_blank">Download File</a></p>
+
+    <a href="{% url 'logout' %}" class="btn btn-info">Logout</a>
+    <a href="{% url 'formapp:update' employee.user_id  %}" class="btn btn-info">Update</a>
+    <a href="{% url 'formapp:change_password' employee.user_id  %}" class="btn btn-info">Change Password</a>
+    <a href="{% url 'formapp:employee_delete' employee.user_id  %}" class="btn btn-info"  style="background-color:#f44336" >Delete</a>
+    <a href="{% url 'formapp:html_to_pdf_view' employee.user_id %}" class="btn btn-info">Print</a>
+    <a href="{% url 'formapp:csv_view' id=employee.user_id %}" class="btn btn-primary">csv file</a> <br><br>
+
+
+  </body>
+</html>

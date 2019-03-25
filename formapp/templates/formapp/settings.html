@@ -1,0 +1,44 @@
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <style>
+    ul {
+      list-style: none;
+    }
+    input[type=radio], input.radio {
+      margin: 1px 0 0 1px;
+    }
+</style>
+</head>
+
+    {% if user.is_authenticated %}
+    <h3 class="text-center">  You are signed in as <strong>{{ user.username }}</strong> </h3>
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <ul class="nav navbar-nav">
+
+            <li><a href="{% url 'logout' %}">logout</a></li>
+            <li><a href="{% url 'formapp:update' employee.user_id %}">Add more info</a></li>
+          </ul>
+        </div>
+      </nav>
+{% endif %}
+
+
+  <h2>Settings</h2>
+
+
+  <h3>GitHub</h3>
+  {% if github_login %}
+    <p>Connected as <a href="https://github.com/{{ github_login.extra_data.login }}/" target="_blank">{{ github_login.extra_data.login }}</a></p>
+    {% if can_disconnect %}
+      <form method="post" action="{% url 'social:disconnect' 'github' %}">
+        {% csrf_token %}
+        <button type="submit">Disconnect from GitHub</button>
+      </form>
+    {% else %}
+      <button type="button" disabled>Disconnect from GitHub</button>
+      <p style="color: red">You must     <a href="{% url 'formapp:change_password' employee.user_id  %}" class="btn btn-info">Change Password</a></p>
+    {% endif %}
+  {% else %}
+    <a href="{% url 'social:begin' 'github' %}">Connect to GitHub</a>
+  {% endif %}
