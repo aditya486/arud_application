@@ -155,14 +155,14 @@ LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'settings'
 
-SOCIAL_AUTH_GITHUB_KEY = 'fe01198da214dba480ab'
-SOCIAL_AUTH_GITHUB_SECRET = 'b47ff02ef1b81944f720d37815ce47bbba4efdea'
+SOCIAL_AUTH_GITHUB_KEY = ********************************
+SOCIAL_AUTH_GITHUB_SECRET = ********************************
 
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'testing@purpose.com'
-SERVER_EMAIL = 'magento@ranosys.net'
+DEFAULT_FROM_EMAIL = ****************
+SERVER_EMAIL = ****************
 EMAIL_HOST = 'mail.ranosys.net'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'magento@ranosys.net'
-EMAIL_HOST_PASSWORD = 'U#Y4-JC5JG(M'
+EMAIL_HOST_USER = ****************
+EMAIL_HOST_PASSWORD = ****************
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
